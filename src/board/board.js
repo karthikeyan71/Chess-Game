@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { pawn, horse } from '../boardService/boardService';
+import { pawn, horse, bishop, castle, queen, king } from '../boardService/boardService';
 import './board.scss';
 
 export default class Board extends Component {
@@ -22,26 +22,44 @@ export default class Board extends Component {
   }
 
   checkMovePossibility = (currentPosition, nextPosition) => {
-    console.log("Checking the move possibility");
+    // console.log("Checking the move possibility");
+    const { values } = this.state;
 
     const { index, subIndex, coin } = currentPosition;
     if ( coin === 0 ) {
       console.log("Not a valid coin");
       return false;
     } else {
-      console.log("checking the service");
-      // let coin = String(coin);
-      console.log(coin);
       switch(coin) {
         case -1:
         case 1:
           console.log("inside the pawn case");
-          return pawn(currentPosition, nextPosition);
+          return pawn(currentPosition, nextPosition, values);
           break;
         case -9:
         case 9:
           console.log("inside the horse case");
-          return horse(currentPosition, nextPosition);
+          return horse(currentPosition, nextPosition, values);
+          break;
+        case -8:
+        case 8:
+          console.log("inside the bishop case");
+          return bishop(currentPosition, nextPosition, values);
+          break;
+        case -10:
+        case 10:
+          console.log("inside the castle case");
+          return castle(currentPosition, nextPosition, values);
+          break;
+        case -7:
+        case 7:
+          console.log("inside the queen case");
+          return queen(currentPosition, nextPosition, values);
+          break;
+        case -6:
+        case 6:
+          console.log("inside the king case");
+          return king(currentPosition, nextPosition, values);
           break;
         default:
           return false;
@@ -55,10 +73,8 @@ export default class Board extends Component {
     const { selectedPosition } = this.state;
     const { index, subIndex } = selectedPosition;
 
+    console.log(selectedIndex, selectedSubIndex);
     if ( selectedIndex === index && selectedSubIndex === subIndex ) {
-      // console.log(selectedIndex, selectedSubIndex);
-      // console.log(index, subIndex);
-      // console.log("Removing the selection");
       this.setState({
         selectedPosition: {
           index: -1,
@@ -66,7 +82,6 @@ export default class Board extends Component {
         }
       });
     } else {
-      // console.log(selectedIndex, selectedSubIndex);
       const selectedMove = { index: selectedIndex, subIndex:selectedSubIndex, coin: selectedValue };
 
       if (index !== -1 && subIndex !== -1) {

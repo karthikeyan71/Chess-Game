@@ -25,13 +25,17 @@ const pawn = (currentPosition, nextPosition, values) => {
   return false;
 }
 
-const horse = (currentPosition, nextPosition) => {
+const horse = (currentPosition, nextPosition, values) => {
 
   console.log('Inside the horse service');
 
   const { index, subIndex, coin } = currentPosition;
   const nextIndex = nextPosition.index;
   const nextSubIndex = nextPosition.subIndex;
+
+  if ((coin > 0 && values[nextIndex][nextSubIndex] > 0) || (coin < 0 && values[nextIndex][nextSubIndex] < 0)  ) {
+    return false;
+  }
 
   const stepCheck = (nextIndex, nextSubIndex) => {
     if (nextIndex-1 === index && nextSubIndex-2 === subIndex) {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { pawn } from '../boardService/boardService';
+import { pawn, horse } from '../boardService/boardService';
 import './board.scss';
 
 export default class Board extends Component {
@@ -41,7 +41,7 @@ export default class Board extends Component {
         case -9:
         case 9:
           console.log("inside the horse case");
-          return pawn(currentPosition, nextPosition);
+          return horse(currentPosition, nextPosition);
           break;
         default:
           return false;
@@ -56,9 +56,9 @@ export default class Board extends Component {
     const { index, subIndex } = selectedPosition;
 
     if ( selectedIndex === index && selectedSubIndex === subIndex ) {
-      console.log(selectedIndex, selectedSubIndex);
-      console.log(index, subIndex);
-      console.log("Removing the selection");
+      // console.log(selectedIndex, selectedSubIndex);
+      // console.log(index, subIndex);
+      // console.log("Removing the selection");
       this.setState({
         selectedPosition: {
           index: -1,
@@ -66,7 +66,7 @@ export default class Board extends Component {
         }
       });
     } else {
-      console.log(selectedIndex, selectedSubIndex);
+      // console.log(selectedIndex, selectedSubIndex);
       const selectedMove = { index: selectedIndex, subIndex:selectedSubIndex, coin: selectedValue };
 
       if (index !== -1 && subIndex !== -1) {

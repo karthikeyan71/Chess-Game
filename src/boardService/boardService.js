@@ -23,12 +23,17 @@ const horse = (currentPosition, nextPosition) => {
   const nextSubIndex = nextPosition.subIndex;
 
   const indexCheck = (nextIndex, nextSubIndex) => {
-    if(nextIndex-1 === index )
+    if(nextIndex-1 === index ) {
+      console.log("came here");
+    }
+    return true;
   }
 
   if ( indexCheck(nextIndex, nextSubIndex) ) {
     console.log("checking the index");
     return true;
+  } else {
+    console.log("in the horse else case");
   }
 
   return false;

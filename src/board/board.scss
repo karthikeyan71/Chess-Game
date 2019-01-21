@@ -1,0 +1,83 @@
+
+.board-container {
+  width: 566px;
+  height: 596px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 2px;
+  border: 1px solid grey;
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.board_elements {
+  width: 12.5%;
+  height: 12.5%;
+  border: 1px solid grey;
+}
+
+.odd_box {
+  background-color: #f6f6f6;
+}
+
+.chess_images {
+  background-repeat: no-repeat;
+  background-size: 750%;
+  background-image: url('../assests/images/chess.png');
+}
+
+.black-king {
+  background-position: -3% -17%;
+}
+
+.black-queen {
+  background-position: 19% -17%;
+}
+
+.black-bishop {
+  background-position: 61% -17%;
+}
+
+.black-horse {
+  background-position: 83% -17%;
+}
+
+.black-pawn {
+  background-position: 104% -11%;
+}
+
+.black-castle {
+  background-position: 40% -17%;
+}
+
+.white-king {
+  background-position: -3% 120%;
+}
+
+.white-queen {
+  background-position: 19% 120%;
+}
+
+.white-bishop {
+  background-position: 61% 120%;
+}
+
+.white-horse {
+  background-position: 83% 120%;
+}
+
+.white-pawn {
+  background-position: 104% 121%;
+}
+
+.white-castle {
+  background-position: 40% 120%;
+}
+
+.active-selection {
+  background-color: lightgreen !important;
+}
+
+.even_box {
+  background-color: #999999;
+}

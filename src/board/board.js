@@ -24,7 +24,6 @@ export default class Board extends Component {
   }
 
   rotateBoard = () => {
-    console.log("inside the rotate board");
     this.setState(prevState => ({
       rotate: !prevState.rotate
     }));
@@ -78,10 +77,13 @@ export default class Board extends Component {
   }
 
   selectPosition = (selectedIndex, selectedSubIndex, selectedValue) => {
-    const { selectedPosition } = this.state;
+    const { selectedPosition, turn } = this.state;
     const { index, subIndex } = selectedPosition;
 
-    // console.log(selectedIndex, selectedSubIndex);
+    if ((turn === 'black' && selectedValue < 0) || (turn === 'white' && selectedValue > 0)) {
+      return;
+    }
+
     if ( selectedIndex === index && selectedSubIndex === subIndex ) {
       this.setState({
         selectedPosition: {
@@ -110,17 +112,20 @@ export default class Board extends Component {
   }
 
   makeMove = (selectedPosition, selectedMove) => {
-    const { values } = this.state;
+    const { values, turn } = this.state;
 
     values[selectedPosition.index][selectedPosition.subIndex] = 0;
     values[selectedMove.index][selectedMove.subIndex] = selectedPosition.coin;
+
+    const nextTurn = (turn === 'black' ? 'white' : 'black');
 
     this.setState({
       values,
       selectedPosition: {
         index: -1,
         subIndex: -1
-      }
+      },
+      turn: nextTurn
     })
 
   }

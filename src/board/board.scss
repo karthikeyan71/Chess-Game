@@ -1,13 +1,18 @@
 
 .board-container {
-  width: 566px;
-  height: 596px;
+  width: 555px;
+  height: 555px;
   margin: 0 auto;
   box-sizing: border-box;
   padding: 2px;
   border: 1px solid grey;
   flex-wrap: wrap;
   display: flex;
+  transition-duration: 0.42s;
+}
+
+.board-container-rotate {
+  transform: rotateZ(180deg);
 }
 
 .board_elements {
@@ -24,6 +29,11 @@
   background-repeat: no-repeat;
   background-size: 750%;
   background-image: url('../assests/images/chess.png');
+  // transition-duration: 0.42s;
+}
+
+.chess_images_rotate {
+  transform: rotateZ(180deg);
 }
 
 .black-king {

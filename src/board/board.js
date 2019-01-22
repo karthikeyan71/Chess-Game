@@ -19,10 +19,18 @@ export default class Board extends Component {
       index: -1,
       subIndex: -1
     },
+    turn: "black",
+    rotate: false
+  }
+
+  rotateBoard = () => {
+    console.log("inside the rotate board");
+    this.setState(prevState => ({
+      rotate: !prevState.rotate
+    }));
   }
 
   checkMovePossibility = (currentPosition, nextPosition) => {
-    // console.log("Checking the move possibility");
     const { values } = this.state;
 
     const { index, subIndex, coin } = currentPosition;
@@ -73,7 +81,7 @@ export default class Board extends Component {
     const { selectedPosition } = this.state;
     const { index, subIndex } = selectedPosition;
 
-    console.log(selectedIndex, selectedSubIndex);
+    // console.log(selectedIndex, selectedSubIndex);
     if ( selectedIndex === index && selectedSubIndex === subIndex ) {
       this.setState({
         selectedPosition: {
@@ -86,10 +94,8 @@ export default class Board extends Component {
 
       if (index !== -1 && subIndex !== -1) {
         if (this.checkMovePossibility(selectedPosition, selectedMove)) {
-          console.log("came inside this case");
           this.makeMove(selectedPosition, selectedMove);
         } else {
-          console.log("came inside the else case");
           this.setState({
             selectedPosition: selectedMove
           });
@@ -120,42 +126,46 @@ export default class Board extends Component {
   }
 
   addClass = (value) => {
+    const { rotate } = this.state;
+
+    const chessClass = rotate ? "chess_images_rotate " : "";
+
     switch(value) {
       case 1:
-        return "chess_images black-pawn";
+        return chessClass + "chess_images black-pawn";
         break;
       case 10:
-        return "chess_images black-castle";
+        return chessClass + "chess_images black-castle";
         break;
       case 9:
-        return "chess_images black-horse";
+        return chessClass + "chess_images black-horse";
         break;
       case 8:
-        return "chess_images black-bishop";
+        return chessClass + "chess_images black-bishop";
         break;
       case 7:
-        return "chess_images black-queen";
+        return chessClass + "chess_images black-queen";
         break;
       case 6:
-        return "chess_images black-king";
+        return chessClass + "chess_images black-king";
         break;
       case -1:
-        return "chess_images white-pawn";
+        return chessClass + "chess_images white-pawn";
         break;
       case -10:
-        return "chess_images white-castle";
+        return chessClass + "chess_images white-castle";
         break;
       case -9:
-        return "chess_images white-horse";
+        return chessClass + "chess_images white-horse";
         break;
       case -8:
-        return "chess_images white-bishop";
+        return chessClass + "chess_images white-bishop";
         break;
       case -7:
-        return "chess_images white-queen";
+        return chessClass + "chess_images white-queen";
         break;
       case -6:
-        return "chess_images white-king";
+        return chessClass + "chess_images white-king";
         break;
       default:
         return "";
@@ -163,7 +173,7 @@ export default class Board extends Component {
   }
 
   render() {
-    const { values, selectedPosition } = this.state;
+    const { values, selectedPosition, rotate } = this.state;
     const { index, subIndex } = selectedPosition;
     const selectedIndex = index;
     const selectedSubIndex = subIndex;
@@ -195,14 +205,16 @@ export default class Board extends Component {
       }
     });
 
-    // console.log(boardElements);
-
     return (
       <div className="container">
-        printing the board
-        <div className="board-container">
+        <br />
+        <div className={`board-container ${ rotate ? "board-container-rotate" : " "} `}>
           { boardElements }
         </div>
+        <br />
+        <button onClick={()=>this.rotateBoard()}> Rotate Board </button>
+        <br />
+        <br />
       </div>
     );
   }

@@ -80,9 +80,6 @@ export default class Board extends Component {
     const { selectedPosition, turn } = this.state;
     const { index, subIndex } = selectedPosition;
 
-    if ((turn === 'black' && selectedValue < 0) || (turn === 'white' && selectedValue > 0)) {
-      return;
-    }
 
     if ( selectedIndex === index && selectedSubIndex === subIndex ) {
       this.setState({
@@ -95,6 +92,16 @@ export default class Board extends Component {
       const selectedMove = { index: selectedIndex, subIndex:selectedSubIndex, coin: selectedValue };
 
       if (index !== -1 && subIndex !== -1) {
+        if ((turn === 'black' && selectedPosition.coin === 0 && selectedValue < 0) || (turn === 'white' && selectedPosition.coin === 0 && selectedValue > 0)) {
+          // console.log("invalid selection");
+          this.setState({
+            selectedPosition: {
+              index: -1,
+              subIndex: -1
+            }
+          });
+          return;
+        }
         if (this.checkMovePossibility(selectedPosition, selectedMove)) {
           this.makeMove(selectedPosition, selectedMove);
         } else {
@@ -103,6 +110,10 @@ export default class Board extends Component {
           });
         }
       } else {
+        if ((turn === 'black' && selectedValue < 0) || (turn === 'white' && selectedValue > 0)) {
+          // console.log("invalid selection");
+          return;
+        }
         this.setState({
           selectedPosition: selectedMove
         });
@@ -117,6 +128,8 @@ export default class Board extends Component {
     values[selectedPosition.index][selectedPosition.subIndex] = 0;
     values[selectedMove.index][selectedMove.subIndex] = selectedPosition.coin;
 
+    console.log("making move");
+
     const nextTurn = (turn === 'black' ? 'white' : 'black');
 
     this.setState({
@@ -126,7 +139,7 @@ export default class Board extends Component {
         subIndex: -1
       },
       turn: nextTurn
-    })
+    });
 
   }
 
